@@ -17,37 +17,37 @@ namespace PoorSkills.Commander.StringReplacement
             List<string> possibleExtensions = EnumHelper.GetEnumDescriptions<FileTypesEnum>() ?? new();
             try
             {
-                foreach (string dir in Directory.GetDirectories(path)?.ToList() ?? new())
+                foreach (string file in Directory.GetFiles(path))
                 {
-                    foreach (string file in Directory.GetFiles(dir))
+                    if (File.Exists(file))
                     {
-                        if (File.Exists(file))
+                        FileInfo fileInfo = new(file);
+                        if (possibleExtensions.Any(x => x.Equals(fileInfo.Extension, StringComparison.OrdinalIgnoreCase)))
                         {
-                            FileInfo fileInfo = new(file);
-                            if (!string.IsNullOrEmpty(fileInfo.Extension)
-                                && possibleExtensions.Any(x => x.Equals(fileInfo.Extension, StringComparison.OrdinalIgnoreCase)))
+                            string? text = File.ReadAllText(file);
+                            if (text.Contains(oldText ?? string.Empty, StringComparison.OrdinalIgnoreCase))
                             {
-                                string? text = File.ReadAllText(file);
-                                if (text.Contains(oldText ?? string.Empty, StringComparison.OrdinalIgnoreCase))
+                                if (fileInfo.Extension.Equals(FileTypesEnum.sln.GetDescription(),
+                                        StringComparison.OrdinalIgnoreCase))
                                 {
-                                    if (fileInfo.Extension.Equals(FileTypesEnum.sln.GetDescription(),
-                                            StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        text = SolutionGuidReplacer.ChangeSlnGuids(text);
-                                    }
-
-                                    text = text.Replace(oldText ?? string.Empty, newText, StringComparison.OrdinalIgnoreCase);
-                                    File.WriteAllText(file, text);
+                                    text = SolutionGuidReplacer.ChangeSlnGuids(text);
                                 }
-                            }
-                            if (fileInfo.Name.Contains(oldText ?? string.Empty, StringComparison.OrdinalIgnoreCase))
-                            {
-                                string newPath = Path.Combine(fileInfo.DirectoryName ?? string.Empty, fileInfo.Name.Replace(oldText, newText, StringComparison.OrdinalIgnoreCase));
-                                replacementInstructions?.Add(new(ReplacementType.File, file, newPath));
+
+                                text = text.Replace(oldText ?? string.Empty, newText, StringComparison.OrdinalIgnoreCase);
+                                File.WriteAllText(file, text);
                             }
                         }
-                        Console.WriteLine(file);
+                        if (fileInfo.Name.Contains(oldText ?? string.Empty, StringComparison.OrdinalIgnoreCase))
+                        {
+                            string newPath = Path.Combine(fileInfo.DirectoryName ?? string.Empty, fileInfo.Name.Replace(oldText, newText, StringComparison.OrdinalIgnoreCase));
+                            replacementInstructions?.Add(new(ReplacementType.File, file, newPath));
+                        }
                     }
+                    Console.WriteLine(file);
+                }
+
+                foreach (string dir in Directory.GetDirectories(path)?.ToList() ?? new())
+                {
                     DirectoryInfo directoryInfo = new(dir);
                     if (directoryInfo.Name.Contains(oldText ?? string.Empty, StringComparison.OrdinalIgnoreCase))
                     {

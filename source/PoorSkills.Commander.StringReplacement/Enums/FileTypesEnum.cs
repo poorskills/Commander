@@ -11,6 +11,10 @@ namespace PoorSkills.Commander.StringReplacement.Enums
         [Description(".xml")]
         xml,
         [Description(".sln")]
-        sln
+        sln,
+        [Description(".json")]
+        json,
+        [Description("")]
+        None
     }
 }

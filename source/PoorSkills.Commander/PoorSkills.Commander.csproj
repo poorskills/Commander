@@ -4,9 +4,6 @@
     <AssemblyName>pskcmd</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="CommandOptions\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\PoorSkills.Commander.Registror\PoorSkills.Commander.Registror.csproj" />
     <ProjectReference Include="..\PoorSkills.Commander.StringReplacement\PoorSkills.Commander.StringReplacement.csproj" />
   </ItemGroup>
