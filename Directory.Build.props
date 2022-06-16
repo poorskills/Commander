@@ -11,5 +11,6 @@
 	<ItemGroup>
 		<Using Include="System"/>
 		<Using Include="CommandLine"/>
+		<Using Static="true" Include="System.Console"/>
     </ItemGroup>
 </Project>

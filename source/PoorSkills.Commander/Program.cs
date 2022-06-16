@@ -40,7 +40,7 @@ public static class Program
                 var qtdeErrs = errors?.Count() ?? default;
                 if (qtdeErrs > 0)
                 {
-                    Console.WriteLine(helptext);
+                    WriteLine(helptext);
                     string[] ar = { Console.ReadLine() ?? string.Empty };
                     await Main(ar);
                 }

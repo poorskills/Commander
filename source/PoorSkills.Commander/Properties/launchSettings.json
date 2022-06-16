@@ -2,7 +2,7 @@
   "profiles": {
     "PoorSkills.Commander": {
       "commandName": "Project",
-      "commandLineArgs": "copy -s \"C:\\Users\\UlissesAlbino\\OneDrive - Remsoft Inc\\Desktop\\Test\\DeuTudo.Certo\" -d \"C:\\Users\\UlissesAlbino\\OneDrive - Remsoft Inc\\Desktop\\Test\\new\" -i \"exe pdb cs dll\""
+      "commandLineArgs": "copy -s \"C:\\Users\\UlissesAlbino\\OneDrive - Remsoft Inc\\Desktop\\Test\\DeuTudo.Certo\" -d \"C:\\Users\\UlissesAlbino\\OneDrive - Remsoft Inc\\Desktop\\Test\\New\" -i \"cs\""
     }
   }
 }

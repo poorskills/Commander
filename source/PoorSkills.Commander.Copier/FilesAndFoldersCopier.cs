@@ -6,18 +6,9 @@
         {
             try
             {
-                var ignored = options
-                    .Ignored
-                    ?.Split(' ', StringSplitOptions.RemoveEmptyEntries)?.ToList() ?? new();
-
-                List<string> ignoredExtensions = new();
-                foreach (var item in ignored)
-                {
-                    ignoredExtensions.Add("." + item);
-                }
-                var instructions = new InstructionGetter()
-                            .GetInstructions(options.Source,
-                            options.Destination, ignoredExtensions, new());
+                var instructions = new InstructionGetter(options.Source,
+                            options.Destination,GetExtensions(options.Excluded), GetExtensions(options.Included))
+                            .GetInstructions(options.Source, options.Destination, new());
 
                 if (instructions?.Count == 0)
                     return 0;
@@ -28,7 +19,7 @@
                     ?.ToList() ?? new())
                 {
                     Directory.CreateDirectory(copyInstruction.NewPath);
-                    Console.WriteLine($"{copyInstruction.NewPath} Created");
+                    WriteLine($"{copyInstruction.NewPath} Created");
                 }
 
 
@@ -38,9 +29,10 @@
                     ?.Reverse()
                     ?.ToList() ?? new())
                 {
-
+                    if (File.Exists(copyInstruction.NewPath))
+                        File.Delete(copyInstruction.NewPath);
                     File.Copy(copyInstruction.OldPath, copyInstruction.NewPath);
-                    Console.WriteLine($"{copyInstruction.OldPath} copied to {copyInstruction.NewPath}");
+                    WriteLine($"{copyInstruction.OldPath} copied to {copyInstruction.NewPath}");
                 }
                 return 0;
             }
@@ -52,5 +44,15 @@
 
         }
 
+        private static List<string> GetExtensions(string extensionsString)
+        {
+            var splitedExtensions = extensionsString?.Split(' ', StringSplitOptions.RemoveEmptyEntries)?.ToList() ?? new();
+            List<string> result = new();
+            foreach (var item in splitedExtensions)
+            {
+                result.Add("." + item.Replace(".", string.Empty));
+            }
+            return result;
+        }
     }
 }

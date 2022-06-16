@@ -35,7 +35,7 @@ namespace PoorSkills.Commander.StringReplacement
 
                                 text = text.Replace(oldText ?? string.Empty, newText, StringComparison.OrdinalIgnoreCase);
                                 File.WriteAllText(file, text);
-                                Console.WriteLine(file);
+                                WriteLine($"{file} content replaced.");
                             }
                         }
                         if (fileInfo.Name.Contains(oldText ?? string.Empty, StringComparison.OrdinalIgnoreCase))
@@ -60,7 +60,7 @@ namespace PoorSkills.Commander.StringReplacement
             }
             catch (Exception excpt)
             {
-                Console.WriteLine(excpt.Message);
+                WriteLine(excpt.Message);
             }
             return replacementInstructions ?? new();
         }

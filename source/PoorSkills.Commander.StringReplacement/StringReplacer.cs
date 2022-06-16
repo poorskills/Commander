@@ -22,7 +22,7 @@ namespace PoorSkills.Commander.StringReplacement
                 {
 
                     File.Move(replacementInstruction.OldPath, replacementInstruction.NewPath);
-                    Console.WriteLine($"{replacementInstruction.OldPath} moved to {replacementInstruction.NewPath}");
+                    WriteLine($"{replacementInstruction.OldPath} moved to {replacementInstruction.NewPath}");
                 }
 
                 foreach (var replacementInstruction in
@@ -32,7 +32,7 @@ namespace PoorSkills.Commander.StringReplacement
                     ?.ToList() ?? new())
                 {
                     Directory.Move(replacementInstruction.OldPath, replacementInstruction.NewPath);
-                    Console.WriteLine($"{replacementInstruction.OldPath} moved to {replacementInstruction.NewPath}");
+                    WriteLine($"{replacementInstruction.OldPath} moved to {replacementInstruction.NewPath}");
                 }
                 return 0;
             }
