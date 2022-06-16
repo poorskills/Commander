@@ -8,7 +8,7 @@ namespace PoorSkills.Commander.Registror
         {
             try
             {
-                var currentPathEnviroment = Environment.GetEnvironmentVariable("PATH");
+                var currentPathEnviroment = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
                 var executingPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 if(currentPathEnviroment?.IndexOf(executingPath ?? string.Empty, StringComparison.OrdinalIgnoreCase) < 0)
                 {

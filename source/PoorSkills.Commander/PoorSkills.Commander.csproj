@@ -4,6 +4,7 @@
     <AssemblyName>pskcmd</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PoorSkills.Commander.Copier\PoorSkills.Commander.Copier.csproj" />
     <ProjectReference Include="..\PoorSkills.Commander.Registror\PoorSkills.Commander.Registror.csproj" />
     <ProjectReference Include="..\PoorSkills.Commander.StringReplacement\PoorSkills.Commander.StringReplacement.csproj" />
   </ItemGroup>

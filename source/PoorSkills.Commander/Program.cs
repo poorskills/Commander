@@ -1,4 +1,5 @@
 ﻿using CommandLine.Text;
+using PoorSkills.Commander.Copier;
 using PoorSkills.Commander.Registror;
 using PoorSkills.Commander.StringReplacement;
 
@@ -11,7 +12,7 @@ public static class Program
         settings += o => o.CaseInsensitiveEnumValues = false;
         Parser parser = new(settings);
 
-        var parseResult = parser.ParseArguments<StringReplacementOptions>(args);
+        var parseResult = parser.ParseArguments<StringReplacementOptions, CopierOptions>(args);
         CommanderRegistror.Register();
         await parseResult.MapResult(async options =>
             {
@@ -20,6 +21,10 @@ public static class Program
                     case StringReplacementOptions:
                         {
                             return await Task.FromResult(StringReplacer.Replace(options as StringReplacementOptions ?? new()));
+                        }
+                    case CopierOptions:
+                        {
+                            return await Task.FromResult(FilesAndFoldersCopier.Copy(options as CopierOptions ?? new()));
                         }
                     default:
                         return await Task.FromResult(-1);

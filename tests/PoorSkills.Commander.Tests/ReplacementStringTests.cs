@@ -21,5 +21,14 @@ namespace PoorSkills.Commander.Tests
             File.ReadAllText(csClassLocation).Should().Be("// this is another NEwValue.");
             File.ReadAllText(csProjLocation).Should().Be("<xml> </xml> <!--this is the NEwValue-->");
         }
+
+        [TestMethod ("Test String Replace")]
+        public void String_Replace_Valid()
+        {
+            string source = "this is a test";
+            string destination = source.Replace("test", "newvalue");
+            source.Should().Be("this is a test");
+            destination.Should().Be("this is a newvalue");
+        }
     }
 }
